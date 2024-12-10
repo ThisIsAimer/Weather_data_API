@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+<!--    adding css with flask-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 </head>
 <body>
-<h1>Weather data API</h1>
+<h1 class="heading">Weather data API</h1>
 <p>url format: http://127.0.0.1:5000/api/v1/station/date</p>
 <p>url example: http://127.0.0.1:5000/api/v1/10/19840612</p>
 </body>
