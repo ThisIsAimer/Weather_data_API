@@ -3,10 +3,12 @@ import pandas
 
 application = Flask(__name__)
 
+stations = pandas.read_csv("dataAnalysisWithJupyter/data_small/stations.txt",skiprows=17)
+stations = stations[["STAID","STANAME                                 "]]
 
 @application.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("home.html", data = stations.to_html())
 
 
 @application.route("/api/v1/<station>/<date>")
