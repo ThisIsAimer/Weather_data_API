@@ -17,8 +17,18 @@ def one_station(station):
     data = pandas.read_csv(filename,skiprows=20,parse_dates=["    DATE"])
     data["   TG"] = data["   TG"].mask(data["   TG"] == -9999,numpy.nan)
     data["TEMP"] = data["   TG"] / 10
-    data = data[["    DATE","TEMP"]]
+    data = data[["    DATE","TEMP"]].dropna()
     return render_template("oneStation.html", data= data.to_html())
+
+@application.route("/api/v1/yearly/<station>/<date>")
+def one_year(station,date):
+    filename = "dataAnalysisWithJupyter/data_small/TG_STAID"+str(station).zfill(6)+".txt"
+    data = pandas.read_csv(filename,skiprows=20,)
+    data["str date"]= data ["    DATE"].astype(str)
+    f_data = data[data ["str date"].str.startswith(str(date))]
+    f_data["TEMP"] = f_data["   TG"] / 10
+    f_data = f_data[["    DATE","TEMP"]].dropna()
+    return render_template("oneStation.html", data=f_data.to_html())
 
 
 
