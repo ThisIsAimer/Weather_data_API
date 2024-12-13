@@ -23,11 +23,11 @@ def one_station(station):
 @application.route("/api/v1/yearly/<station>/<date>")
 def one_year(station,date):
     filename = "dataAnalysisWithJupyter/data_small/TG_STAID"+str(station).zfill(6)+".txt"
-    data = pandas.read_csv(filename,skiprows=20,)
-    data["str date"]= data ["    DATE"].astype(str)
-    f_data = data[data ["str date"].str.startswith(str(date))]
+    f_data = pandas.read_csv(filename,skiprows=20,parse_dates=["    DATE"])
+    f_data["str date"]= f_data ["    DATE"].astype(str)
+    f_data = f_data[f_data ["str date"].str.startswith(str(date))]
     f_data["TEMP"] = f_data["   TG"] / 10
-    f_data = f_data[["    DATE","TEMP"]].dropna()
+    f_data = f_data[["    DATE","TEMP"]]
     return render_template("oneStation.html", data=f_data.to_html())
 
 
